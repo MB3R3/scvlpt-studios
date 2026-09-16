@@ -12,39 +12,100 @@
   --color-brand-gold: var(--brand-gold);
 }
 
+/* — Premium editorial tokens — warm, restrained, typography-led */
+
 :root {
-  --bg-primary: #f8f9fa;
-  --bg-card: #ffffff;
-  --bg-neutral-50: #fafafa;
-  --bg-neutral-100: #f5f5f5;
-  --bg-neutral-200: #e5e5e5;
-  --text-primary: #1a1a1a;
-  --text-secondary: #525252;
-  --border-color: #1a1a1a;
-  --shadow-color: rgba(0, 0, 0, 1);
-  --brand-purple: #7c3aed;
-  --brand-pink: #ec4899;
-  --brand-coral: #f43f5e;
-  --brand-gold: #fbbf24;
-  --grid-line-color: #e5e7eb;
+  --bg-primary: #FDFCF9;
+  --bg-card: #FFFFFF;
+  --bg-neutral-50: #F6F3EE;
+  --bg-neutral-100: #EEE9E1;
+  --bg-neutral-200: #E7E2DA;
+  --text-primary: #141413;
+  --text-secondary: #6E6E73;
+  --text-muted: #9A9996;
+  --border-color: #E7E2DA;
+  --border-light: #EDE8E1;
+  --shadow-color: rgba(20, 20, 19, 0.06);
+  --shadow-medium: rgba(20, 20, 19, 0.08);
+  --accent: #141413;
+  --accent-hover: #2A2A28;
+  /* Backward-compat brand vars — muted to single restrained accent */
+  --brand-purple: #141413;
+  --brand-pink: #8A8682;
+  --brand-coral: #A8A29D;
+  --brand-gold: #B8B0A3;
+  --grid-line-color: rgba(20, 20, 19, 0.04);
+  /* Editorial spacing */
+  --section-py: clamp(5rem, 8vw, 8rem);
+  --section-gap: 3rem;
+  --content-max-width: 80rem;
 }
 
 body.dark-theme {
-  --bg-primary: #05020c; /* Deeper, richer shade of cosmic violet-black */
-  --bg-card: #0d081b;    /* Slightly lighter dark-purple/violet for depth */
-  --bg-neutral-50: #120c24;
-  --bg-neutral-100: #100a21;
-  --bg-neutral-200: #22183d;
-  --text-primary: #ffffff;
-  --text-secondary: #b6b1cf;
-  --border-color: #ffffff;
-  --shadow-color: rgba(189, 81, 242, 0.4); /* Neon violet shadow glow */
-  --brand-purple: #bd51f2; /* Vibrant neon purple/violet */
-  --brand-pink: #ff5757;   /* Neon coral */
-  --brand-coral: #ff5757;  /* Neon coral */
-  --brand-gold: #ff914d;   /* Neon orange */
-  --grid-line-color: rgba(189, 81, 242, 0.06); /* Highly subtle cyber-glowing grid lines */
+  --bg-primary: #0F0F0E;
+  --bg-card: #1A1A19;
+  --bg-neutral-50: #1E1E1C;
+  --bg-neutral-100: #232321;
+  --bg-neutral-200: #2E2E2B;
+  --text-primary: #F5F3EF;
+  --text-secondary: #9A9996;
+  --text-muted: #7A7A78;
+  --border-color: #2E2E2B;
+  --border-light: #2A2A28;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-medium: rgba(0, 0, 0, 0.4);
+  --accent: #F5F3EF;
+  --accent-hover: #E7E2DA;
+  --brand-purple: #F5F3EF;
+  --brand-pink: #9A9996;
+  --brand-coral: #9A9996;
+  --brand-gold: #B8B0A3;
+  --grid-line-color: rgba(245, 243, 239, 0.05);
 }
+
+/* — Typography hierarchy — editorial, confident, not overly uppercase */
+
+.display-heading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--text-primary);
+}
+
+.section-heading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.body-text {
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* — Animations — preserved */
 
 @keyframes float {
   0%, 100% { transform: translate3d(0, 0, 0); }
@@ -76,8 +137,19 @@ body.dark-theme {
   will-change: transform;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-slow-spin,
+  .animate-pulse-slow {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}
 
-/* Headline Typography Split & Spacing Utilities */
+
+/* Headline Typography Split & Spacing Utilities — preserved for GSAP */
 .reveal-word-outer {
   display: inline-block;
   overflow: hidden;
@@ -93,15 +165,19 @@ body.dark-theme {
   display: inline-block;
 }
 
-/* Custom text stroke utilities */
+/* Custom text stroke utilities — softened to use vars */
 .text-stroke-black {
-  -webkit-text-stroke: 2px #1a1a1a;
+  -webkit-text-stroke: 1.5px var(--text-primary);
   color: transparent;
 }
 
 .text-stroke-white {
-  -webkit-text-stroke: 2px #ffffff;
+  -webkit-text-stroke: 1.5px var(--text-primary);
   color: transparent;
+}
+body.dark-theme .text-stroke-black,
+body.dark-theme .text-stroke-white {
+  -webkit-text-stroke: 1.5px var(--text-primary);
 }
 
 .hero-grid-pattern {
@@ -110,48 +186,72 @@ body.dark-theme {
     linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
 }
 
-/* Brutalist sharp shadows */
+/* — Borders and shadows — retuned from brutalist 4-8px offsets to subtle editorial */
+
 .brutalist-shadow {
-  box-shadow: 4px 4px 0px 0px #1a1a1a;
+  box-shadow: 0 1px 3px var(--shadow-color), 0 4px 12px var(--shadow-color);
+  border: 1px solid var(--border-color);
 }
 
 .brutalist-shadow-lg {
-  box-shadow: 8px 8px 0px 0px #1a1a1a;
+  box-shadow: 0 2px 8px var(--shadow-color), 0 8px 24px var(--shadow-medium);
+  border: 1px solid var(--border-color);
 }
 
 .brutalist-shadow-purple {
-  box-shadow: 6px 6px 0px 0px #7c3aed;
+  box-shadow: 0 2px 8px var(--shadow-color), 0 4px 16px var(--shadow-medium);
+  border: 1px solid var(--border-color);
 }
 
-/* Custom scrollbar for premium feel */
+/* — Editorial card — future sections can use this instead of boxed brutalist */
+
+.card-editorial {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+/* — Section spacing — generous editorial whitespace, compatible with existing py-24 */
+
+section {
+  /* Future portfolio sections will rely on this; existing agency sections keep their py-24 until redesigned */
+  scroll-margin-top: 80px;
+}
+
+/* Custom scrollbar — softened */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-light);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
-  border: 2px solid var(--bg-primary);
+  border: 1px solid var(--bg-primary);
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: var(--text-muted);
 }
 
-/* Base transitions */
+/* Base transitions — preserved, softened easing */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Dynamic Tailwind mapping when dark theme is active */
+/* — Dark mode — preserved functionality, retuned to warm editorial, simplified */
+
 body.dark-theme {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
 
+/* Core mappings — keep !important only where Tailwind arbitrary values require override */
 body.dark-theme .bg-\[\#f8f9fa\],
 body.dark-theme section.bg-\[\#f8f9fa\],
 body.dark-theme [class*="bg-[#f8f9fa]"] {
@@ -176,33 +276,33 @@ body.dark-theme .bg-neutral-200 {
 }
 
 body.dark-theme .bg-purple-50 {
-  background-color: rgba(189, 81, 242, 0.1) !important;
-  color: #ffffff !important;
+  background-color: rgba(245, 243, 239, 0.06) !important;
+  color: var(--text-primary) !important;
 }
 
 body.dark-theme .bg-purple-100 {
-  background-color: rgba(189, 81, 242, 0.2) !important;
-  color: #ffffff !important;
+  background-color: rgba(245, 243, 239, 0.08) !important;
+  color: var(--text-primary) !important;
 }
 
 body.dark-theme .bg-emerald-50 {
-  background-color: rgba(16, 185, 129, 0.1) !important;
-  color: #ffffff !important;
+  background-color: rgba(245, 243, 239, 0.06) !important;
+  color: var(--text-primary) !important;
 }
 
 body.dark-theme .bg-emerald-100 {
-  background-color: rgba(16, 185, 129, 0.2) !important;
-  color: #ffffff !important;
+  background-color: rgba(245, 243, 239, 0.08) !important;
+  color: var(--text-primary) !important;
 }
 
 body.dark-theme .bg-red-50 {
-  background-color: rgba(239, 68, 68, 0.1) !important;
-  color: #ffffff !important;
+  background-color: rgba(245, 243, 239, 0.06) !important;
+  color: var(--text-primary) !important;
 }
 
 /* Header dynamic bg when dark theme is active */
 body.dark-theme header.bg-white\/95 {
-  background-color: rgba(5, 2, 12, 0.95) !important;
+  background-color: rgba(15, 15, 14, 0.9) !important;
   backdrop-filter: blur(12px);
   border-color: var(--border-color) !important;
 }
@@ -230,12 +330,12 @@ body.dark-theme .text-neutral-500 {
 
 body.dark-theme .text-purple-600,
 body.dark-theme .text-purple-500 {
-  color: var(--brand-purple) !important;
+  color: var(--text-secondary) !important;
 }
 
 body.dark-theme .text-pink-600,
 body.dark-theme .text-pink-500 {
-  color: var(--brand-pink) !important;
+  color: var(--text-muted) !important;
 }
 
 body.dark-theme .border-black {
@@ -243,85 +343,85 @@ body.dark-theme .border-black {
 }
 
 body.dark-theme .border-neutral-200 {
-  border-color: var(--bg-neutral-200) !important;
+  border-color: var(--border-color) !important;
 }
 
-/* Stroke replacements */
+/* Stroke replacements — now uses var */
 body.dark-theme .text-stroke-black {
-  -webkit-text-stroke: 2px var(--border-color) !important;
+  -webkit-text-stroke: 1.5px var(--text-primary) !important;
   color: transparent !important;
 }
 
-/* Shadow mappings */
+/* Shadow mappings — softened to editorial */
 body.dark-theme .shadow-\[8px_8px_0px_0px_rgba\(0\2c 0\2c 0\2c 1\)\],
 body.dark-theme .shadow-\[8px_8px_0px_0px_rgba\(0\2c  0\2c  0\2c  1\)\],
 body.dark-theme .shadow-\[10px_10px_0px_0px_\#1a1a1a\] {
-  box-shadow: 8px 8px 0px 0px var(--shadow-color) !important;
+  box-shadow: 0 2px 8px var(--shadow-color), 0 8px 24px var(--shadow-medium) !important;
 }
 
 body.dark-theme .shadow-\[6px_6px_0px_0px_rgba\(0\2c 0\2c 0\2c 1\)\],
 body.dark-theme .shadow-\[6px_6px_0px_0px_rgba\(0\2c  0\2c  0\2c  1\)\],
 body.dark-theme .shadow-\[6px_6px_0px_0px_\#7c3aed\] {
-  box-shadow: 6px 6px 0px 0px var(--shadow-color) !important;
+  box-shadow: 0 2px 8px var(--shadow-color) !important;
 }
 
 body.dark-theme .shadow-\[3px_3px_0px_0px_rgba\(0\2c 0\2c 0\2c 1\)\],
 body.dark-theme .shadow-\[3px_3px_0px_0px_rgba\(0\2c  0\2c  0\2c  1\)\] {
-  box-shadow: 3px 3px 0px 0px var(--shadow-color) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
 }
 
 body.dark-theme .shadow-\[4px_4px_0px_0px_\#1a1a1a\] {
-  box-shadow: 4px 4px 0px 0px var(--shadow-color) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
 }
 
 body.dark-theme .shadow-\[4px_4px_0px_0px_\#7c3aed\] {
-  box-shadow: 4px 4px 0px 0px var(--shadow-color) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
 }
 
-/* Custom primary CTA buttons with the radiant gradient! */
+/* Primary CTA — retuned from neon gradient to restrained editorial */
 body.dark-theme .bg-black {
-  background-image: linear-gradient(135deg, #ff5757, #ff914d) !important;
-  background-color: transparent !important;
-  color: #ffffff !important;
+  background: var(--accent) !important;
+  background-image: none !important;
+  color: var(--bg-primary) !important;
   border-color: var(--border-color) !important;
 }
 
 /* In dark mode, ensure active tab inside browser mockup remains clean */
 body.dark-theme .bg-black.text-white {
   background-image: none !important;
-  background-color: #ffffff !important;
-  color: #05020c !important;
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
 }
 
 body.dark-theme .fill-black {
-  fill: var(--brand-gold) !important;
+  fill: var(--text-primary) !important;
 }
 
 body.dark-theme svg.fill-black.text-black {
-  color: var(--brand-gold) !important;
-  fill: var(--brand-gold) !important;
+  color: var(--text-primary) !important;
+  fill: var(--text-primary) !important;
 }
 
 body.dark-theme hr {
-  border-color: var(--bg-neutral-200) !important;
+  border-color: var(--border-color) !important;
 }
 
-/* Hover overrides */
+/* Hover overrides — softened */
 body.dark-theme .hover\:bg-neutral-100:hover,
 body.dark-theme .hover\:bg-neutral-50:hover {
   background-color: var(--bg-neutral-50) !important;
 }
 
 body.dark-theme .hover\:bg-neutral-800:hover {
-  background-color: var(--bg-neutral-200) !important;
+  background-color: var(--bg-neutral-100) !important;
 }
 
-/* In dark-theme, the overlay itself should stay dark black as styled */
+/* In dark-theme, the overlay itself should stay dark */
 body.dark-theme #mobile-nav-overlay {
-  background-color: #05020c !important;
+  background-color: #0F0F0E !important;
 }
 
-/* Lenis smooth scrolling styles */
+/* Lenis smooth scrolling styles — preserved */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -342,5 +442,3 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
-
-

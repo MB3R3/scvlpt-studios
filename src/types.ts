@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// Legacy agency types — retained temporarily while components still depend on them.
+// Will be removed as sections are redesigned in later phases.
 export interface StepType {
   number: number;
   title: string;
@@ -57,4 +59,22 @@ export interface PromiseType {
   title: string;
   description: string;
   icon: string;
+}
+
+// — Portfolio project model (Phase 1 foundation) —
+
+export type ProjectType = "REAL" | "CONCEPT";
+
+export interface Project {
+  slug: string;
+  title: string;
+  type: ProjectType;
+  category: string;
+  description: string;
+  image: string | null;
+  technologies: string[];
+  year: string | null;
+  status: string | null;
+  liveUrl: string | null;
+  githubUrl: string | null;
 }

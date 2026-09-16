@@ -3,7 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { StepType, ClientLogo, WebsiteType, CaseStudy, PricingPlan, PromiseType } from "./types";
+import { StepType, ClientLogo, WebsiteType, CaseStudy, PricingPlan, PromiseType, Project } from "./types";
+
+// — Legacy agency data — retained to keep unused components type-safe until they are deleted.
+// No longer rendered in App.tsx (Phase 2D). Will be removed when component files are deleted.
 
 export const CLIENT_LOGOS: ClientLogo[] = [
   { name: "EVLTN GYM" },
@@ -203,5 +206,62 @@ export const PROMISES: PromiseType[] = [
     title: "Privacy compliance",
     description: "We build with absolute privacy standard. Secure and optimized cloud hosting, zero cookie-banners needed unless you explicitly request tracking.",
     icon: "Lock",
+  },
+];
+
+// — Portfolio projects —
+
+export const PROJECTS: Project[] = [
+  {
+    slug: "harmoniq",
+    title: "HarmonIQ",
+    type: "REAL",
+    category: "Product / Web",
+    description: "A music recommendation platform designed around personalized discovery and a focused listening experience.",
+    image: null,
+    technologies: ["React", "TypeScript", "Django", "Django REST Framework", "Spotify Web API"],
+    year: null,
+    status: null,
+    liveUrl: null,
+    githubUrl: null,
+  },
+  {
+    slug: "hotel-website",
+    title: "Hotel Website",
+    type: "REAL",
+    category: "Hospitality / Web",
+    description: "A hospitality website focused on clear presentation of rooms, amenities and booking information.",
+    image: null,
+    technologies: [],
+    year: null,
+    status: null,
+    liveUrl: null,
+    githubUrl: null,
+  },
+  {
+    slug: "kairo",
+    title: "KAIRO",
+    type: "CONCEPT",
+    category: "Fashion / Web",
+    description: "A speculative contemporary fashion brand website exploring editorial typography, imagery and digital product presentation.",
+    image: null,
+    technologies: [],
+    year: null,
+    status: null,
+    liveUrl: null,
+    githubUrl: null,
+  },
+  {
+    slug: "aura",
+    title: "AURA",
+    type: "CONCEPT",
+    category: "Luxury Skincare / Web",
+    description: "A speculative luxury skincare website focused on minimal visual design, product presentation and editorial storytelling.",
+    image: null,
+    technologies: [],
+    year: null,
+    status: null,
+    liveUrl: null,
+    githubUrl: null,
   },
 ];

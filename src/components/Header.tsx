@@ -4,13 +4,11 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { gsap } from "gsap";
-import InquiryModal from "./InquiryModal";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const [theme, setTheme] = useState<"light" | "dark">(() => {
@@ -49,7 +47,13 @@ export default function Header() {
     
     // Allow the overlay to slide up smoothly before starting the scroll sequence
     setTimeout(() => {
-      const element = document.getElementById(id);
+      if (id === "home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      // Contact maps to footer when no dedicated contact section exists yet
+      const targetId = id === "contact" ? "app-footer" : id;
+      const element = document.getElementById(targetId);
       if (element) {
         const offset = 80; // height of sticky header
         const bodyRect = document.body.getBoundingClientRect().top;
@@ -133,17 +137,17 @@ export default function Header() {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { label: "Process", id: "process" },
+    { label: "Home", id: "home" },
     { label: "Work", id: "work" },
-    { label: "Pricing", id: "pricing" },
-    { label: "FAQ", id: "faq" },
+    { label: "About", id: "about-section" },
+    { label: "Contact", id: "contact" },
   ];
 
   const mobileNavLinks = [
-    { label: "PROCESS", id: "process" },
+    { label: "HOME", id: "home" },
     { label: "WORK", id: "work" },
-    { label: "PRICING", id: "pricing" },
-    { label: "FAQ", id: "faq" },
+    { label: "ABOUT", id: "about-section" },
+    { label: "CONTACT", id: "contact" },
   ];
 
   const toggleMenu = () => {
@@ -180,10 +184,10 @@ export default function Header() {
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} id="header-logo">
             <div className="relative flex items-center justify-center w-8 h-8 rounded-none border-2 border-black bg-black p-0.5">
               <div className="w-full h-full bg-white rounded-none flex items-center justify-center">
-                <span className="text-xs font-sans font-black text-black uppercase">s</span>
+                <span className="text-[10px] font-sans font-black text-black uppercase">EM</span>
               </div>
             </div>
-            <span className="text-lg font-sans font-black tracking-tighter uppercase text-black">scvlpt.studio</span>
+            <span className="text-lg font-sans font-black tracking-tighter uppercase text-black">Essien Mbereidem</span>
           </div>
 
           {/* Right: CTA Button (Desktop) */}
@@ -203,13 +207,12 @@ export default function Header() {
             </button>
 
             <button
-              onClick={() => setIsInquiryOpen(true)}
+              onClick={() => handleScrollTo("work")}
               className="relative px-6 py-2.5 text-xs font-sans font-black uppercase tracking-widest rounded-none bg-black text-white border-2 border-black transition-all hover:bg-neutral-800 cursor-pointer shadow-[4px_4px_0px_0px_#7c3aed] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_#7c3aed] duration-200"
               id="header-cta-btn"
             >
               <span className="relative z-10 flex items-center gap-1">
-                Get a free draft
-                <Sparkles className="w-3.5 h-3.5" />
+                View Work
               </span>
             </button>
           </div>
@@ -299,25 +302,21 @@ export default function Header() {
         {/* Agency aesthetic accents at the bottom */}
         <div className="space-y-6 pb-6">
           <button
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setIsInquiryOpen(true);
-            }}
+            onClick={() => handleScrollTo("work")}
             className="w-full py-4 rounded-none border-2 border-white bg-white text-black font-black text-xs uppercase tracking-widest text-center block shadow-[4px_4px_0px_0px_#7c3aed] cursor-pointer hover:bg-neutral-100 transition-all active:translate-x-0.5 active:translate-y-0.5"
             id="mobile-nav-overlay-cta"
           >
-            START PROJECT ↗
+            VIEW WORK ↗
           </button>
           
           <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 uppercase tracking-widest border-t border-neutral-900 pt-4">
-            <span>EST. 2026 / PORT HARCOURT</span>
-            <span>DESIGN • TECH</span>
+            <span>WEB DEVELOPER • DIGITAL CREATIVE</span>
+            <span>2026</span>
           </div>
         </div>
       </div>
 
-      {/* Inquiry modal global hook */}
-      <InquiryModal isOpen={isInquiryOpen} onClose={() => setIsInquiryOpen(false)} />
+      {/* Inquiry modal preserved for existing sections; header CTA now scrolls to Work */}
     </>
   );
 }

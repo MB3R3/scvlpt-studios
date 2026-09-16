@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Github, Linkedin, Instagram, ArrowUp, Mail, MapPin } from "lucide-react";
+import { Github, Linkedin, ArrowUp, Mail } from "lucide-react";
 
 export default function Footer() {
   const handleScrollToTop = () => {
@@ -30,22 +30,20 @@ export default function Footer() {
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-2 cursor-pointer" onClick={handleScrollToTop} id="footer-logo">
               <div className="relative flex items-center justify-center w-7 h-7 rounded-none bg-black p-0.5 border-2 border-black">
-                <span className="text-[10px] font-sans font-black text-white uppercase">s</span>
+                <span className="text-[10px] font-sans font-black text-white uppercase">EM</span>
               </div>
-              <span className="text-base font-sans font-black tracking-wider text-black uppercase">scvlpt.studio</span>
+              <span className="text-base font-sans font-black tracking-wider text-black uppercase">Essien Mbereidem</span>
             </div>
             
             <p className="text-neutral-500 text-xs font-sans font-semibold max-w-sm leading-relaxed">
-              Bespoke, hand-coded single-page websites, custom application frameworks, and automated online booking integrations. 
-              Meticulously engineered in Port Harcourt, Rivers, Nigeria.
+              Web Developer & Digital Creative — I design and build digital experiences that combine thoughtful UI with modern web technology.
             </p>
 
             {/* Socials stack */}
             <div className="flex items-center gap-3 pt-2" id="footer-socials">
               {[
-                { icon: Instagram, href: "#", label: "Instagram" },
-                { icon: Linkedin, href: "#", label: "LinkedIn" },
-                { icon: Github, href: "#", label: "GitHub" },
+                { icon: Linkedin, href: "https://www.linkedin.com/in/mbereidem-essien-055b08234", label: "LinkedIn" },
+                { icon: Github, href: "https://github.com/MB3R3", label: "GitHub" },
               ].map((s, idx) => {
                 const IconComp = s.icon;
                 return (
@@ -53,6 +51,8 @@ export default function Footer() {
                     key={idx}
                     href={s.href}
                     aria-label={s.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-2 rounded-none bg-white border-2 border-black text-black hover:bg-neutral-100 transition-colors"
                   >
                     <IconComp className="w-4 h-4" />
@@ -64,35 +64,36 @@ export default function Footer() {
 
           {/* Navigation links (Spans 3 cols) */}
           <div className="md:col-span-3 space-y-4" id="footer-nav-col">
-            <h4 className="text-xs font-mono font-black tracking-widest text-black uppercase">Agency</h4>
+            <h4 className="text-xs font-mono font-black tracking-widest text-black uppercase">Explore</h4>
             <div className="flex flex-col gap-2.5 text-xs font-sans">
-              <button onClick={() => document.getElementById("process")?.scrollIntoView({ behavior: "smooth" })} className="text-neutral-500 hover:text-black font-semibold transition-colors cursor-pointer text-left">
-                Our 4 Steps
+              <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-neutral-500 hover:text-black font-semibold transition-colors cursor-pointer text-left">
+                Home
               </button>
               <button onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })} className="text-neutral-500 hover:text-black font-semibold transition-colors cursor-pointer text-left">
-                Interactive Showcase
+                Work
               </button>
-              <button onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })} className="text-neutral-500 hover:text-black font-semibold transition-colors cursor-pointer text-left">
-                Pricing Packages
-              </button>
-              <button onClick={() => document.getElementById("promises")?.scrollIntoView({ behavior: "smooth" })} className="text-neutral-500 hover:text-black font-semibold transition-colors cursor-pointer text-left">
-                Our Quality Guarantees
+              <button onClick={() => document.getElementById("about-section")?.scrollIntoView({ behavior: "smooth" })} className="text-neutral-500 hover:text-black font-semibold transition-colors cursor-pointer text-left">
+                About
               </button>
             </div>
           </div>
 
           {/* Contact Details (Spans 4 cols) */}
           <div className="md:col-span-4 space-y-4" id="footer-contact-col">
-            <h4 className="text-xs font-mono font-black tracking-widest text-black uppercase">Contact Headquarters</h4>
+            <h4 className="text-xs font-mono font-black tracking-widest text-black uppercase">Contact</h4>
             <div className="space-y-3 text-xs text-neutral-500 font-semibold font-sans">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-black shrink-0 mt-0.5 stroke-[2.5]" />
-                <span>Port Harcourt, Rivers, Nigeria • Available local & remote</span>
-              </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-black shrink-0 stroke-[2.5]" />
-                <a href="mailto:hello@scvlpt.studio" className="hover:text-black transition-colors">
-                  hello@scvlpt.studio
+                <a href="mailto:essienmbereidem@gmail.com" className="hover:text-black transition-colors">
+                  essienmbereidem@gmail.com
+                </a>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <a href="https://www.linkedin.com/in/mbereidem-essien-055b08234" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors text-xs">
+                  linkedin.com/in/mbereidem-essien-055b08234 ↗
+                </a>
+                <a href="https://github.com/MB3R3" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors text-xs">
+                  github.com/MB3R3 ↗
                 </a>
               </div>
             </div>
@@ -104,11 +105,7 @@ export default function Footer() {
         <div className="pt-8 border-t-2 border-black flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-neutral-500 font-bold" id="footer-bottom-row">
           
           <div className="flex flex-wrap items-center gap-4">
-            <span>© {new Date().getFullYear()} SCVLPT.STUDIO. All rights reserved.</span>
-            <span className="hidden sm:inline text-neutral-300">•</span>
-            <a href="#" className="hover:text-black transition-colors">Imprint</a>
-            <span className="hidden sm:inline text-neutral-300">•</span>
-            <a href="#" className="hover:text-black transition-colors">Privacy Policy</a>
+            <span>© {new Date().getFullYear()} Essien Mbereidem. All rights reserved.</span>
           </div>
 
           <button

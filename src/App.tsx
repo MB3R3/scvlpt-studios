@@ -10,16 +10,8 @@ import Lenis from "@studio-freight/lenis";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import BuiltWithHeart from "./components/BuiltWithHeart";
-import MarqueeSection from "./components/MarqueeSection";
-import StepsSection from "./components/StepsSection";
-import ProvenSystem from "./components/ProvenSystem";
 import DreamWebsiteDo from "./components/DreamWebsiteDo";
-import FeastForTheEyes from "./components/FeastForTheEyes";
-import PricingSection from "./components/PricingSection";
-import PromisesSection from "./components/PromisesSection";
-import ComparisonSection from "./components/ComparisonSection";
-import FaqSection from "./components/FaqSection";
+import AboutSection from "./components/AboutSection";
 import Footer from "./components/Footer";
 
 // Register ScrollTrigger
@@ -183,44 +175,16 @@ export default function App() {
       );
     });
 
-    // 5. Scroll-Triggered Layout Reveals
+    // 5. Scroll-Triggered Layout Reveals — current sections (Work + About)
     const sectionsToAnimate = [
       {
-        trigger: "#about-section",
-        targets: "#about-section [id^='bento-card-']",
-      },
-      {
-        trigger: "#process",
-        targets: "#process [id^='step-card-']",
-      },
-      {
-        trigger: "#system-section",
-        targets: "#system-section [id^='tech-card-'], #code-snippet-box",
-      },
-      {
         trigger: "#work",
-        targets: "#website-tabs-list > button, #website-showcase-content",
+        targets: "#work [id^='work-project-']",
       },
       {
-        trigger: "#feast-section",
-        targets: "#portfolio-mockup-card",
+        trigger: "#about-section",
+        targets: "#about-section #about-intro > *, #about-section #about-capabilities > div > div",
       },
-      {
-        trigger: "#pricing",
-        targets: "#pricing [id^='pricing-card-'], #pricing-security-badge",
-      },
-      {
-        trigger: "#promises",
-        targets: "#promises [id^='promise-card-']",
-      },
-      {
-        trigger: "#comparison",
-        targets: "#comparison [key], #comparison table, #comparison tr",
-      },
-      {
-        trigger: "#faq",
-        targets: "#faq [id^='faq-item-']",
-      }
     ];
 
     const triggers: ScrollTrigger[] = [];
@@ -264,47 +228,18 @@ export default function App() {
   }, []);
 
   return (
-    <div className="bg-[#f8f9fa] min-h-screen text-[#1a1a1a] font-sans antialiased selection:bg-black selection:text-white" id="root-app-container">
-      {/* Absolute top fixed header navigation */}
+    <div className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] font-sans antialiased selection:bg-black selection:text-white" id="root-app-container">
+      {/* Header */}
       <Header />
 
-      {/* Main layout contents */}
+      {/* Main */}
       <main id="main-content-flow">
-        {/* 1. Hero & Mockup Section */}
         <Hero />
-
-        {/* 2. Client brand slider marquee */}
-        <MarqueeSection />
-
-        {/* 3. Built with Heart Bento details */}
-        <BuiltWithHeart />
-
-        {/* 4. Timeline process 4 steps */}
-        <StepsSection />
-
-        {/* 5. Proven system tech architecture */}
-        <ProvenSystem />
-
-        {/* 6. What should your dream website do interactive show tabs */}
         <DreamWebsiteDo />
-
-        {/* 7. Portfolio feast for the eyes case studies */}
-        <FeastForTheEyes />
-
-        {/* 8. Pricing packages options */}
-        <PricingSection />
-
-        {/* 9. Five quality promises checks */}
-        <PromisesSection />
-
-        {/* 10. Industry comparison table */}
-        <ComparisonSection />
-
-        {/* 11. FAQ Accordions list */}
-        <FaqSection />
+        <AboutSection />
       </main>
 
-      {/* Footer copyright and contact block */}
+      {/* Footer */}
       <Footer />
     </div>
   );
