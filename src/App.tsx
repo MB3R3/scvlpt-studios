@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import DreamWebsiteDo from "./components/DreamWebsiteDo";
 import AboutSection from "./components/AboutSection";
+import ServicesSection from "./components/ServicesSection";
 import Footer from "./components/Footer";
 
 // Register ScrollTrigger
@@ -175,7 +176,7 @@ export default function App() {
       );
     });
 
-    // 5. Scroll-Triggered Layout Reveals — current sections (Work + About)
+    // 5. Scroll-Triggered Layout Reveals — current sections (Work + About + Services)
     const sectionsToAnimate = [
       {
         trigger: "#work",
@@ -184,6 +185,10 @@ export default function App() {
       {
         trigger: "#about-section",
         targets: "#about-section #about-intro > *, #about-section #about-capabilities > div > div",
+      },
+      {
+        trigger: "#services-section",
+        targets: "#services-section [id^='service-row-']",
       },
     ];
 
@@ -237,6 +242,7 @@ export default function App() {
         <Hero />
         <DreamWebsiteDo />
         <AboutSection />
+        <ServicesSection />
       </main>
 
       {/* Footer */}

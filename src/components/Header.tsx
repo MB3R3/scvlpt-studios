@@ -140,6 +140,7 @@ export default function Header() {
     { label: "Home", id: "home" },
     { label: "Work", id: "work" },
     { label: "About", id: "about-section" },
+    { label: "Services", id: "services-section" },
     { label: "Contact", id: "contact" },
   ];
 
@@ -147,6 +148,7 @@ export default function Header() {
     { label: "HOME", id: "home" },
     { label: "WORK", id: "work" },
     { label: "ABOUT", id: "about-section" },
+    { label: "SERVICES", id: "services-section" },
     { label: "CONTACT", id: "contact" },
   ];
 
