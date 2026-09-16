@@ -321,13 +321,13 @@ export default function Header() {
                 linksRef.current[index] = el;
               }}
               onClick={() => handleScrollTo(link.id)}
-              className="w-full flex items-baseline justify-between py-5 border-b border-neutral-900 text-left hover:text-purple-400 transition-colors group cursor-pointer"
+              className="w-full flex items-baseline justify-between py-5 border-b border-neutral-900 text-left hover:opacity-70 transition-opacity group cursor-pointer"
               id={`mobile-nav-link-${link.id}`}
             >
               <span className="text-3xl font-sans font-black tracking-tighter uppercase">
                 {link.label}
               </span>
-              <span className="text-xs font-mono text-neutral-600 font-bold group-hover:text-purple-400 transition-colors">
+              <span className="text-xs font-mono text-neutral-600 font-bold group-hover:text-neutral-400 transition-colors">
                 / 0{index + 1}
               </span>
             </button>

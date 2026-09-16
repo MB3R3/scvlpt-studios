@@ -21,7 +21,10 @@ export interface Project {
   role?: string;
   screenshots?: string[];
   challenge?: string;
+  approach?: string;
+  outcome?: string;
   designDirection?: string;
   development?: string;
   recommendation?: string;
+  nextSlug?: string;
 }

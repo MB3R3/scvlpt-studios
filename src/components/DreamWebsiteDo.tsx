@@ -139,11 +139,14 @@ export default function DreamWebsiteDo() {
 
             return (
               <article key={project.slug} id={`work-project-${project.slug}`} className="group">
-                {/* Hierarchy: number / title / type / category — editorial, above image */}
+                {/* Hierarchy: number / type / category / year — editorial, above image */}
                 <div className="flex flex-wrap items-baseline gap-2 mb-3">
                   <span className="meta-label !text-[11px] tracking-[0.16em]">{number}</span>
                   <span className="w-px h-3 self-center" style={{ background: "var(--border-color)" }} aria-hidden />
-                  <span className="meta-label !text-[11px]">{project.type} · {project.category}</span>
+                  <span className="meta-label !text-[11px]">
+                    {project.type} · {project.category}
+                    {project.year ? ` · ${project.year}` : ""}
+                  </span>
                   {isConcept && (
                     <span className="font-mono text-[10px] tracking-wide ml-1" style={{ color: "var(--text-muted)" }}>
                       — Speculative
@@ -202,10 +205,10 @@ export default function DreamWebsiteDo() {
                           window.dispatchEvent(new PopStateEvent("popstate"));
                           window.scrollTo({ top: 0, behavior: "smooth" });
                         }}
-                        className="inline-flex items-center gap-1.5 text-[13px] font-sans font-medium underline underline-offset-4 decoration-[var(--border-color)] hover:decoration-[var(--text-primary)] transition-colors"
+                        className="inline-flex items-center gap-1.5 text-[13px] font-sans font-semibold underline underline-offset-4 decoration-[var(--border-color)] hover:decoration-[var(--text-primary)] transition-colors"
                         style={{ color: "var(--text-primary)" }}
                       >
-                        View Case Study <span aria-hidden>→</span>
+                        Explore Case Study <span aria-hidden>→</span>
                       </a>
                     </div>
                   )}

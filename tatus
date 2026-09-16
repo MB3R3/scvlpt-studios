@@ -1,0 +1,12 @@
+warning: in the working copy of 'src/components/AboutSection.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/DreamWebsiteDo.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/ProjectPage.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/types.ts', LF will be replaced by CRLF the next time Git touches it
+ src/components/AboutSection.tsx   |  92 [32m++++[m[31m-----[m
+ src/components/DreamWebsiteDo.tsx |  11 [32m+[m[31m-[m
+ src/components/Header.tsx         |   4 [32m+[m[31m-[m
+ src/data.ts                       |  29 [32m++[m[31m-[m
+ src/pages/ProjectPage.tsx         | 397 [32m+++++++++++++++++++++++[m[31m---------------[m
+ src/types.ts                      |   3 [32m+[m
+ 6 files changed, 310 insertions(+), 226 deletions(-)
