@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -14,11 +14,28 @@ import DreamWebsiteDo from "./components/DreamWebsiteDo";
 import AboutSection from "./components/AboutSection";
 import ServicesSection from "./components/ServicesSection";
 import Footer from "./components/Footer";
+import ProjectPage from "./pages/ProjectPage";
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
+  // Lightweight pathname routing — no React Router
+  const getPath = () => (typeof window !== "undefined" ? window.location.pathname : "/");
+  const [path, setPath] = useState(getPath);
+
+  useEffect(() => {
+    const onPop = () => setPath(window.location.pathname);
+    window.addEventListener("popstate", onPop);
+    // Also handle pushState dispatched as popstate in app
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  const projectMatch = path.match(/^\/work\/([^/]+)\/?$/);
+  const projectSlug = projectMatch ? projectMatch[1] : null;
+
+  const isProjectPage = !!projectSlug;
+
   useEffect(() => {
     // 1. Accessibility: Check for prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -231,6 +248,18 @@ export default function App() {
       });
     };
   }, []);
+
+  if (isProjectPage) {
+    return (
+      <div className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] font-sans antialiased selection:bg-black selection:text-white" id="root-app-container">
+        <Header />
+        <main id="main-content-flow">
+          <ProjectPage slug={projectSlug!} />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] font-sans antialiased selection:bg-black selection:text-white" id="root-app-container">

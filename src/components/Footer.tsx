@@ -7,6 +7,39 @@ import { Github, Linkedin } from "lucide-react";
 
 export default function Footer() {
   const handleScrollTo = (id: string) => {
+    const isProject = typeof window !== "undefined" && window.location.pathname.startsWith("/work/");
+    if (isProject) {
+      if (id === "home" || id === "app-footer") {
+        // app-footer on project page is current footer; for home, go to top of portfolio
+        if (id === "home") {
+          window.history.pushState({}, "", "/");
+          window.dispatchEvent(new PopStateEvent("popstate"));
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+        // CONTACT on project page already here
+        const el = document.getElementById(id);
+        if (el) {
+          const offset = 80;
+          const top = el.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+        return;
+      }
+      // Work/About/Services on project page → back to portfolio
+      window.history.pushState({}, "", "/");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          const offset = 80;
+          const top = el.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 100);
+      return;
+    }
+
     if (id === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;

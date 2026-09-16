@@ -146,6 +146,9 @@ body.dark-theme {
   * {
     scroll-behavior: auto !important;
   }
+  .group:hover .group-hover\:scale-\[1\.02\] {
+    transform: none !important;
+  }
 }
 
 
@@ -236,12 +239,22 @@ section {
 }
 
 /* Base transitions — preserved, softened easing */
+html {
+  overflow-x: hidden;
+}
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Focus visibility — production polish */
+:focus-visible {
+  outline: 2px solid var(--border-color);
+  outline-offset: 2px;
 }
 
 /* — Dark mode — preserved functionality, retuned to warm editorial, simplified */

@@ -41,17 +41,41 @@ export default function Header() {
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const linksRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Smooth scroll helper
+  // Smooth scroll helper — also handles navigation from /work/* pages
   const handleScrollTo = (id: string) => {
     setIsMobileMenuOpen(false);
     
+    // If on a project page, navigate back to main portfolio first
+    const isProject = typeof window !== "undefined" && window.location.pathname.startsWith("/work/");
+    if (isProject) {
+      if (id === "home") {
+        window.history.pushState({}, "", "/");
+        window.dispatchEvent(new PopStateEvent("popstate"));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const targetId = id === "contact" ? "app-footer" : id;
+      // Navigate to home then scroll to section
+      window.history.pushState({}, "", "/");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          const offset = 80;
+          const top = el.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 150);
+      return;
+    }
+
     // Allow the overlay to slide up smoothly before starting the scroll sequence
     setTimeout(() => {
       if (id === "home") {
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
-      // Contact maps to footer when no dedicated contact section exists yet
+      // Contact maps to footer
       const targetId = id === "contact" ? "app-footer" : id;
       const element = document.getElementById(targetId);
       if (element) {
@@ -161,7 +185,7 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-md border-b-2 border-black py-3"
+            ? "bg-[var(--bg-card)]/90 backdrop-blur-md border-b border-[var(--border-color)] py-3"
             : "bg-transparent py-5"
         }`}
         id="app-header"
@@ -169,12 +193,15 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
           
           {/* Left: Navigation links (Desktop) */}
-          <nav className="hidden md:flex items-center gap-6" id="desktop-nav">
+          <nav className="hidden md:flex items-center gap-6" id="desktop-nav" aria-label="Primary navigation">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleScrollTo(link.id)}
-                className="text-xs font-mono uppercase tracking-widest text-neutral-600 hover:text-black font-black transition-colors cursor-pointer"
+                className="text-xs font-mono uppercase tracking-widest font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color)] focus-visible:ring-offset-2"
+                style={{ color: "var(--text-secondary)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
                 id={`nav-link-${link.id}`}
               >
                 {link.label}
@@ -184,12 +211,12 @@ export default function Header() {
 
           {/* Center: Brand Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} id="header-logo">
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-none border-2 border-black bg-black p-0.5">
-              <div className="w-full h-full bg-white rounded-none flex items-center justify-center">
-                <span className="text-[10px] font-sans font-black text-black uppercase">EM</span>
+            <div className="relative flex items-center justify-center w-8 h-8 rounded-none border bg-[var(--text-primary)] p-0.5" style={{ borderColor: "var(--text-primary)" }}>
+              <div className="w-full h-full bg-[var(--bg-card)] rounded-none flex items-center justify-center">
+                <span className="text-[10px] font-sans font-black uppercase" style={{ color: "var(--text-primary)" }}>EM</span>
               </div>
             </div>
-            <span className="text-lg font-sans font-black tracking-tighter uppercase text-black">Essien Mbereidem</span>
+            <span className="text-lg font-sans font-black tracking-tighter uppercase" style={{ color: "var(--text-primary)" }}>Essien Mbereidem</span>
           </div>
 
           {/* Right: CTA Button (Desktop) */}
@@ -197,20 +224,22 @@ export default function Header() {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2.5 rounded-none border-2 border-black bg-white text-black hover:bg-neutral-100 transition-all flex items-center justify-center cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] mr-1"
+              className="p-2.5 rounded-none border bg-[var(--bg-card)] hover:bg-[var(--bg-neutral-50)] transition-colors flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color)] mr-1"
+              style={{ borderColor: "var(--border-color)", color: "var(--text-primary)" }}
               title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+              aria-label={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
               id="theme-toggle-desktop"
             >
               {theme === "light" ? (
-                <Moon className="w-4 h-4 text-black" />
+                <Moon className="w-4 h-4" aria-hidden />
               ) : (
-                <Sun className="w-4 h-4 text-orange-500 animate-pulse" />
+                <Sun className="w-4 h-4 text-orange-500 animate-pulse" aria-hidden />
               )}
             </button>
 
             <button
               onClick={() => handleScrollTo("work")}
-              className="relative px-6 py-2.5 text-xs font-sans font-black uppercase tracking-widest rounded-none bg-black text-white border-2 border-black transition-all hover:bg-neutral-800 cursor-pointer shadow-[4px_4px_0px_0px_#7c3aed] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_#7c3aed] duration-200"
+              className="relative px-6 py-2.5 text-xs font-sans font-semibold uppercase tracking-widest rounded-none bg-[var(--accent)] text-[var(--bg-primary)] border border-[var(--accent)] hover:bg-[var(--accent-hover)] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color)] focus-visible:ring-offset-2"
               id="header-cta-btn"
             >
               <span className="relative z-10 flex items-center gap-1">
@@ -224,30 +253,34 @@ export default function Header() {
             {/* Theme Toggle Mobile */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-none border-2 flex items-center justify-center transition-all ${
+              className={`p-2 rounded-none border flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color)] ${
                 isMobileMenuOpen 
                   ? "bg-black border-neutral-800 text-neutral-400 hover:text-white"
-                  : "bg-white border-black text-black hover:bg-neutral-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5"
+                  : "bg-[var(--bg-card)] hover:bg-[var(--bg-neutral-50)]"
               }`}
+              style={!isMobileMenuOpen ? { borderColor: "var(--border-color)", color: "var(--text-primary)" } : undefined}
               id="theme-toggle-mobile"
               title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+              aria-label={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
             >
               {theme === "light" ? (
-                <Moon className="w-3.5 h-3.5" />
+                <Moon className="w-3.5 h-3.5" aria-hidden />
               ) : (
-                <Sun className="w-3.5 h-3.5 text-orange-500 animate-pulse" />
+                <Sun className="w-3.5 h-3.5 text-orange-500 animate-pulse" aria-hidden />
               )}
             </button>
             
             {/* Morphing Hamburger Menu Trigger */}
             <button
               onClick={toggleMenu}
-              className={`relative w-11 h-11 flex flex-col items-center justify-center border-2 cursor-pointer focus:outline-none z-50 transition-all ${
+              className={`relative w-11 h-11 flex flex-col items-center justify-center border cursor-pointer focus:outline-none z-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color)] ${
                 isMobileMenuOpen 
                   ? "bg-black text-white border-white hover:bg-neutral-900" 
-                  : "bg-white text-black border-black hover:bg-neutral-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
+                  : "bg-[var(--bg-card)] hover:bg-[var(--bg-neutral-50)]"
               }`}
+              style={!isMobileMenuOpen ? { borderColor: "var(--border-color)", color: "var(--text-primary)" } : undefined}
               aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
               id="mobile-menu-toggle"
             >
               <div className="w-5 h-4 flex flex-col justify-between relative" id="hamburger-icon-lines">
@@ -305,7 +338,7 @@ export default function Header() {
         <div className="space-y-6 pb-6">
           <button
             onClick={() => handleScrollTo("work")}
-            className="w-full py-4 rounded-none border-2 border-white bg-white text-black font-black text-xs uppercase tracking-widest text-center block shadow-[4px_4px_0px_0px_#7c3aed] cursor-pointer hover:bg-neutral-100 transition-all active:translate-x-0.5 active:translate-y-0.5"
+            className="w-full py-4 rounded-none border-2 border-white bg-white text-black font-semibold text-xs uppercase tracking-widest text-center block cursor-pointer hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
             id="mobile-nav-overlay-cta"
           >
             VIEW WORK ↗
